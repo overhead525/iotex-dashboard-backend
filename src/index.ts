@@ -1,10 +1,13 @@
 import express from "express";
 
 const app = express();
-const port = 3000;
+const port = 5005;
+const frontendDir = "dist/frontend/build";
+
+app.use(express.static(frontendDir));
 
 app.get("/", (req: express.Request, res: express.Response) => {
-  res.send("Hello, World!");
+  res.sendFile(`${frontendDir}/index.html`);
 });
 
 app.listen(port, () => {

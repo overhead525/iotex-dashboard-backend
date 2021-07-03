@@ -1,0 +1,9 @@
+#!/bin/bash
+
+cd dist
+git clone https://github.com/overhead525/iotex-dashboard-frontend.git frontend
+
+cd frontend
+npm install
+
+npm run build
