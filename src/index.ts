@@ -1,7 +1,7 @@
 import express from "express";
 
 const app = express();
-const port = 5005;
+const port = 8080;
 const frontendDir = "dist/frontend/build";
 
 app.use(express.static(frontendDir));
