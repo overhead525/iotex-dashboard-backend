@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "fetch-frontend": "./fetch_frontend",
     "compile": "npx tsc --project ./tsconfig.json",
-    "start": "npm run fetch-frontend && npm run compile && nodemon dist/index.js"
+    "build": "npm run fetch-frontend && npm run compile",
+    "start": "nodemon dist/index.js"
   },
   "author": "Ritchel Cousar Jr.",
   "license": "ISC",
