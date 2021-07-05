@@ -16,7 +16,10 @@ const parseGraphQLConfig = fetchParseConfigFromFile(
   "parse-graphql.config.json"
 );
 const parseMountPath = "/parse";
-const parseServer = new ParseServer(parseConfig);
+const parseServer = new ParseServer({
+  ...parseConfig,
+  databaseURI: process.env.DATABASE_URI || parseConfig.databaseURI,
+} as ParseConfigData);
 
 const parseGraphQLServer = new ParseGraphQLServer(
   parseServer,
