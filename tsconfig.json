@@ -70,7 +70,6 @@
     "forceConsistentCasingInFileNames": true        /* Disallow inconsistently-cased references to the same file. */
   },
   "exclude": [
-    "cloud",
     "dist",
     "node_modules",
     "logs"

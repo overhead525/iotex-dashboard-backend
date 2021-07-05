@@ -2,7 +2,7 @@
   "appId": "iotex-dashboard-backend",
   "masterKey": "iotex-dashboard-backend-singapore-america",
   "appName": "iotex-dashboard",
-  "cloud": "./cloud/main",
+  "cloud": "dist/cloud/main",
   "serverURL": "http://localhost:8080/parse",
   "publicServerURL": "http://localhost:8080/parse",
   "databaseURI": "mongodb://localhost:27017"

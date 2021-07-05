@@ -1,0 +1,11 @@
+type TodoResponse {
+  userId: String!
+  id: Int!
+  title: String!
+  completed: Boolean!
+}
+
+extend type Query {
+  hello: String! @resolve
+  getTodos: TodoResponse! @resolve
+}
