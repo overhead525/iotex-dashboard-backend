@@ -15,6 +15,7 @@
   "dependencies": {
     "@types/node-fetch": "^2.5.10",
     "express": "^4.17.1",
+    "graphql-tag": "^2.12.5",
     "node-fetch": "^2.6.1",
     "parse": "^3.2.0",
     "parse-dashboard": "^2.1.0",

@@ -1,7 +1,14 @@
 import express from "express";
+import fs from "fs";
+import path from "path";
+import gql from "graphql-tag";
 // @ts-ignore
 import { default as ParseServer, ParseGraphQLServer } from "parse-server";
-import { fetchParseConfigFromFile, ParseConfigData } from "./util";
+import {
+  fetchParseConfigFromFile,
+  ParseConfigData,
+  ParseGraphQLConfigData,
+} from "./util";
 // @ts-ignore
 import ParseDashboard from "parse-dashboard";
 
@@ -9,11 +16,14 @@ import ParseDashboard from "parse-dashboard";
 const app = express();
 const port = 8080;
 const frontendDir = "dist/frontend/build";
+const customSchema = fs.readFileSync(
+  path.resolve(__dirname, "./cloud/schema.graphql")
+);
 const parseConfig = <ParseConfigData>(
   fetchParseConfigFromFile("parse.config.json")
 );
-const parseGraphQLConfig = fetchParseConfigFromFile(
-  "parse-graphql.config.json"
+const parseGraphQLConfig = <ParseGraphQLConfigData>(
+  fetchParseConfigFromFile("parse-graphql.config.json")
 );
 const parseMountPath = "/parse";
 const parseServer = new ParseServer({
@@ -21,10 +31,12 @@ const parseServer = new ParseServer({
   databaseURI: process.env.DATABASE_URI || parseConfig.databaseURI,
 } as ParseConfigData);
 
-const parseGraphQLServer = new ParseGraphQLServer(
-  parseServer,
-  parseGraphQLConfig
-);
+const parseGraphQLServer = new ParseGraphQLServer(parseServer, {
+  ...parseGraphQLConfig,
+  graphQLCustomTypeDefs: gql`
+    ${customSchema}
+  `,
+});
 
 const parseDashboard = new ParseDashboard({
   apps: [parseConfig],
