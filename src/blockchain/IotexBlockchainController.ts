@@ -1,98 +1,37 @@
-import fs from "fs";
-import path from "path";
-import * as grpc from "@grpc/grpc-js";
-import * as protoLoader from "@grpc/proto-loader";
-import { ServiceClientConstructor } from "@grpc/grpc-js/build/src/make-client";
-import { ContractsObject, MainnetConfigObject, SummaryResult } from "./types";
+import { ActionInfo } from "../generated/graphql";
+import { BaseBlockchainController } from "./BaseBlockchainController";
 import {
-  ActionInfo,
-  GetActionsByAddressRequest,
-  GetActionsResponse,
-} from "../proto_types/proto/api/api";
+  fetchTransactionsByAddressGraphQL,
+  filterNumUniqueContractUsersGraphQL,
+} from "./shared";
 
-const PROTO_PATH = path.resolve(
-  __dirname,
-  "../../lib/iotex-proto/proto/api/api.proto"
-);
-
-const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
-  keepCase: true,
-  longs: String,
-  enums: String,
-  defaults: true,
-  oneofs: true,
-  includeDirs: ["../../lib/iotex-proto"],
-});
-
-export class IotexBlockchainController {
-  contractsObj: ContractsObject;
-  MainnetConfigObj: MainnetConfigObject;
-  client;
-  iotexapi_proto:
-    | protoLoader.ProtobufTypeDefinition
-    | grpc.GrpcObject
-    | ServiceClientConstructor;
-
-  constructor() {
-    this.contractsObj = JSON.parse(
-      fs
-        .readFileSync(path.resolve(__dirname, "../../contracts.json"))
-        .toString()
-    );
-    this.MainnetConfigObj = JSON.parse(
-      fs
-        .readFileSync(path.resolve(__dirname, "../../mainnet.config.json"))
-        .toString()
-    );
-    this.iotexapi_proto = grpc.loadPackageDefinition(
-      packageDefinition
-    ).iotexapi;
-    // @ts-ignore
-    this.client = new this.iotexapi_proto.APIService(
-      this.MainnetConfigObj.target,
-      grpc.credentials.createSsl()
+export class IotexBlockchainController extends BaseBlockchainController {
+  constructor(bridgeString: string) {
+    super(
+      "../../mainnet.config.json",
+      "https://analytics.iotexscan.io",
+      bridgeString
     );
   }
 
-  private filterNumUniqueContractUsers(actions: ActionInfo[]): number {
-    const uniqueUsers: { [key: string]: boolean } = {};
-
-    actions.forEach((meta) => {
-      if (!(meta.sender in uniqueUsers)) {
-        uniqueUsers[meta.sender] = true;
-      }
-    });
-
-    return Object.keys(uniqueUsers).length;
-  }
-
-  // private filterNumWithoutLegacyIOTXTransactions(
-  //   actions: ActionInfo[]
-  // ): number {
-  //   actions.filter((action) => {});
-  // }
-
-  public async getNumUniqueBridgeUsers(bridge: string) {
-    const request: GetActionsByAddressRequest = {
-      address: this.contractsObj[bridge].tokenCashier,
-      start: 0,
-      count: 1000,
-    };
-    const p = await new Promise((resolve, reject) => {
-      this.client.GetActions(
-        {
-          byAddr: { ...request },
-        },
-        (err: any, response: GetActionsResponse) => {
-          if (!err) {
-            resolve(this.filterNumUniqueContractUsers(response.actionInfo));
-            return;
-          }
-          reject(err);
-          return;
-        }
-      );
-    });
-    return p as number;
+  public async getNumUniqueBridgeUsers(): Promise<number> {
+    const bridgeStrings = Object.keys(this.contractsObject).slice(0, 3);
+    const transactions = await fetchTransactionsByAddressGraphQL(
+      this.contractsObject[this.bridgeString].tokenCashier,
+      this.apiConnection
+    );
+    return filterNumUniqueContractUsersGraphQL(transactions);
   }
 }
+
+const main = async () => {
+  const ibc2e = new IotexBlockchainController("iotx2ethereum");
+  const ibc2b = new IotexBlockchainController("iotx2binance");
+  const ibc2p = new IotexBlockchainController("iotx2polygon");
+  const result = await ibc2e.getNumUniqueBridgeUsers();
+  const result2 = await ibc2b.getNumUniqueBridgeUsers();
+  const result3 = await ibc2p.getNumUniqueBridgeUsers();
+  console.log(`Result is ${result}, ${result2}, ${result3}`);
+};
+
+main();

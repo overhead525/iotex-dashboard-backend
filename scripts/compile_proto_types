@@ -1,9 +1,0 @@
-#!/bin/bash
-
-# This file should only be called in package.json (npm scripts)
-
-if [ ! -d src/proto_types ]; then
-  mkdir src/proto_types
-fi
-
-./lib/protoc/bin/protoc --proto_path=./lib/iotex-proto --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_opt=esModuleInterop=true ./lib/iotex-proto/proto/**/*.proto --ts_proto_out=src/proto_types

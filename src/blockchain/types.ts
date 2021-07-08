@@ -40,7 +40,15 @@ export interface MainnetConfigObject {
   target: string;
 }
 
-export interface EtherscanConfigObject {
+export interface ScanConfigObject {
+  apiKey: string;
+}
+
+export interface EtherscanConfigObject extends ScanConfigObject {
+  apiKey: string;
+}
+
+export interface BinanceConfigObject extends ScanConfigObject {
   apiKey: string;
 }
 
