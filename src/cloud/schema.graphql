@@ -8,4 +8,5 @@ type TodoResponse {
 extend type Query {
   hello: String! @resolve
   getTodos: TodoResponse! @resolve
+  getUniqueBridgeUsers: Int! @resolve
 }

@@ -1,0 +1,34 @@
+{
+  "iotx2ethereum": {
+    "wrappedIOTX": "io15qr5fzpxsnp7garl4m7k355rafzqn8grrm0grz",
+    "tokenSafe": "io1cj3f498390srqv765nnvaxuk0rpxyadzpfjz75",
+    "minterPool": "io1g7va274ltufv5nh4xawfmt0clel6tfz58p7n5r",
+    "standardTokenList": "io1t89whrwyfr0supctsqcx9n7ex5dd8yusfqhyfz",
+    "proxyTokenList": "io1dn8nqk3pmmll990xz6a94fpradtrljxmmx5p8j",
+    "witnessList": "io1hezp6d7y3246c5gklnnkh0z95qfld4zdsphhsw",
+    "tokenCashier": "io1gsr52ahqzklaf7flqar8r0269f2utkw9349qg8",
+    "transferValidator": "io1dwaxh2ml4fd2wg8cg35vhfsgdcyzrczffp3vus"
+  },
+  "iotx2binance": {
+    "validator": "io10xr64as4krm5nufd5l2ddc43al6tl0smumkg7y",
+    "standardTokenList": "io1h2d3r0d20t58sv6h707ppc959kvs8wjsurrtnk",
+    "proxyTokenList": "io17r9ehjstwj4gfqzwpm08fjnd606h04h2m6r92f",
+    "tokenCashier": "io1zjlng7je02kxyvjq4eavswp6uxvfvcnh2a0a3d"
+  },
+  "iotx2polygon": {
+    "validator": "io10xr64as4krm5nufd5l2ddc43al6tl0smumkg7y",
+    "standardTokenList": "io197rk3nff9622pkncvuvhfwyms73esdtwph4rlq",
+    "proxyTokenList": "io16at6mlcwcsrqutz2zhuhwam87h988r9fcdauk8",
+    "tokenCashier": "io12s9f9hv4zsr7umy5hxt6g0k0xr4x6pxdp5w998"
+  },
+  "ethereum2iotx": {
+    "WETH": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+    "standardTokenList": "0x7c0bef36e1b1cbeb1f1a5541300786a7b608aede",
+    "proxyTokenList": "0x73ffdfc98983ad59fb441fc5fe855c1589e35b3e",
+    "witnessList": "0x8598dF1Ec0ac7dfBa802f4bDD93A6B93bd0AD83f",
+    "tokenSafe": "0xc2e0f31d739cb3153ba5760a203b3bd7c27f0d7a",
+    "minterPool": "0x964f4f19bc823e72cc1f806021937cfc06f63b45",
+    "tokenCashier": "0xa0fd7430852361931b23a31f84374ba3314e1682",
+    "transferValidator": "0xd8165188ccc135b3a3b2a5d2bc3af9d94753d955"
+  }
+}

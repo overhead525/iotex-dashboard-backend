@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FRONTEND_DIR="dist/frontend"
+FRONTEND_DIR="../dist/frontend"
 
 build_if_necessary () {
   if [ ! -d "$FRONTEND_DIR/build" ]; then
@@ -12,9 +12,7 @@ build_if_necessary () {
 }
 
 install_dependencies_and_build () {
-  cd frontend 
   npm install
-
   npm run build
 }
 
@@ -25,12 +23,13 @@ fetch_logic () {
 
   cd dist
   git clone https://github.com/overhead525/iotex-dashboard-frontend.git frontend
+  cd $FRONTEND_DIR
 
   install_dependencies_and_build
 }
 
 pull_logic () {
-  cd dist
+  cd $FRONTEND_DIR
   git pull
 
   install_dependencies_and_build

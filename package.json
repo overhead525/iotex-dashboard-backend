@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "fetch-frontend": "./fetch_frontend",
+    "fetch-frontend": "scripts/fetch_frontend",
     "compile-proto-types": "scripts/compile_proto_types",
     "compile": "npx tsc --project ./tsconfig.json && cp ./src/cloud/schema.graphql dist/cloud",
     "build": "npm run fetch-frontend && npm run compile",
