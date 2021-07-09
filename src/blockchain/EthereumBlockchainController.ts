@@ -1,4 +1,5 @@
 import { BaseBlockchainController } from "./BaseBlockchainController";
+import Parse from "parse/node";
 
 export class EthereumBlockchainController extends BaseBlockchainController {
   constructor() {
@@ -11,8 +12,13 @@ export class EthereumBlockchainController extends BaseBlockchainController {
 }
 
 const main = async () => {
+  Parse.initialize(
+    "iotex-dashboard-backend",
+    "iotex-dashboard-backend-singapore-america"
+  );
+  Parse.serverURL = "http://localhost:8080/parse";
   const ebc = new EthereumBlockchainController();
-  console.log(await ebc.getNumUniqueBridgeUsers());
+  await ebc.scrapeAndGatherCashierTransactions();
 };
 
 main();

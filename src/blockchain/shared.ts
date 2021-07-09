@@ -56,6 +56,46 @@ export const filterNumUniqueContractUsersGraphQL = (
   return Object.keys(uniqueUsers).length;
 };
 
+export const filterActionsByStartTime = (
+  actions: ActionInfo[],
+  startTime: Date
+) => {
+  return actions.filter((action) => {
+    const timestamp = new Date(action.timeStamp * 1000);
+    return startTime <= timestamp;
+  });
+};
+
+export const filterTransactionsByStartTime = (
+  actions: RawEtherscanTransactionObject[],
+  startTime: Date
+) => {
+  return actions.filter((action) => {
+    const timestamp = new Date(parseInt(action.timeStamp) * 1000);
+    return startTime <= timestamp;
+  });
+};
+
+export const filterActionsByEndTime = (
+  actions: ActionInfo[],
+  endTime: Date
+) => {
+  return actions.filter((action) => {
+    const timestamp = new Date(action.timeStamp * 1000);
+    return endTime >= timestamp;
+  });
+};
+
+export const filterTransactionsByEndTime = (
+  actions: ActionInfo[],
+  endTime: Date
+) => {
+  return actions.filter((action) => {
+    const timestamp = new Date(action.timeStamp * 1000);
+    return endTime >= timestamp;
+  });
+};
+
 export const fetchTransactionsByAddress = async (
   address: string,
   connection: AxiosInstance,
@@ -91,8 +131,6 @@ export const fetchTransactionsByAddressGraphQL = async (
 ): Promise<ActionInfo[]> => {
   try {
     let count = await getCount(address, connection);
-    console.log(`Count is ${count}`);
-    let numIterations = Math.floor(count / 100);
     let iteration = 0;
     const transactions: ActionInfo[] = [];
 
@@ -136,3 +174,5 @@ export const fetchTransactionsByAddressGraphQL = async (
     console.error(error);
   }
 };
+
+// export const storeRawEtherscanTransactionObject

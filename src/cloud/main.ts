@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import { main } from "../blockchain/index";
+// import { main } from "../blockchain/index";
 
 Parse.Cloud.define("hello", () => "Hello, World!");
 
@@ -9,6 +9,8 @@ Parse.Cloud.define("getTodos", async () => {
   return parsedResponse;
 });
 
+/*
 Parse.Cloud.define("getUniqueBridgeUsers", async () => {
   return await main();
 });
+*/

@@ -4,30 +4,35 @@ import { IotexBlockchainController } from "./IotexBlockchainController";
 import { PolygonBlockchainController } from "./PolygonBlockchainController";
 
 export class DataController {
-  private ibc: IotexBlockchainController;
+  private ibc2e: IotexBlockchainController;
+  private ibc2b: IotexBlockchainController;
+  private ibc2p: IotexBlockchainController;
   private ebc: EthereumBlockchainController;
   private bbc: BinanceBlockchainController;
   private pbc: PolygonBlockchainController;
 
   constructor(
-    ibc: IotexBlockchainController,
+    ibc2e: IotexBlockchainController,
+    ibc2b: IotexBlockchainController,
+    ibc2p: IotexBlockchainController,
     ebc: EthereumBlockchainController,
     bbc: BinanceBlockchainController,
     pbc: PolygonBlockchainController
   ) {
-    this.ibc = ibc;
+    this.ibc2e = ibc2e;
+    this.ibc2b = ibc2b;
+    this.ibc2p = ibc2p;
     this.ebc = ebc;
     this.bbc = bbc;
     this.pbc = pbc;
   }
 
-  public async getUniqueBridgeUsers(/* start_date: Date, end_date: Date, currency: string */) {
-    // IOTX out Token Cashiers...
-    const blockchains = Object.keys(this.ibc.contractsObj).slice(0, 3);
+  public async getUniqueBridgeUsers(start_date?: Date, end_date?: Date) {
     const results: number[] = [];
-    for await (const chain of blockchains) {
-      results.push(await this.ibc.getNumUniqueBridgeUsers(chain));
-    }
+    // IOTX out Token Cashiers...
+    results.push(await this.ibc2e.getNumUniqueBridgeUsers());
+    results.push(await this.ibc2b.getNumUniqueBridgeUsers());
+    results.push(await this.ibc2p.getNumUniqueBridgeUsers());
     // Ethereum to IOTX Token Cashier
     results.push(await this.ebc.getNumUniqueBridgeUsers());
     // Binance to IOTX Token Cashier

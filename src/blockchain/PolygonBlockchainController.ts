@@ -10,6 +10,7 @@ export class PolygonBlockchainController extends BaseBlockchainController {
   }
 }
 
+/*
 const main = async () => {
   const pbc = new PolygonBlockchainController();
   const result = await pbc.getNumUniqueBridgeUsers();
@@ -17,3 +18,4 @@ const main = async () => {
 };
 
 main();
+*/

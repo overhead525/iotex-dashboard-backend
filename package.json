@@ -6,11 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "fetch-frontend": "scripts/fetch_frontend",
-    "compile-proto-types": "scripts/compile_proto_types",
     "compile": "npx tsc --project ./tsconfig.json && cp ./src/cloud/schema.graphql dist/cloud",
     "build": "npm run fetch-frontend && npm run compile",
     "start": "node dist/index.js",
-    "generate-graphql-types": "graphql-codegen --config codegen.yml"
+    "generate-graphql-types:iotexscan": "graphql-codegen --config codegen.yml",
+    "generate-graphql-types:parse": "graphql-codegen --config parse-codegen.yml"
   },
   "author": "Ritchel Cousar Jr.",
   "license": "ISC",

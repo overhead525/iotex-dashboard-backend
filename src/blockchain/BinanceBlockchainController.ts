@@ -10,6 +10,7 @@ export class BinanceBlockchainController extends BaseBlockchainController {
   }
 }
 
+/*
 const main = async () => {
   const bbc = new BinanceBlockchainController();
   const result = await bbc.getNumUniqueBridgeUsers();
@@ -17,3 +18,4 @@ const main = async () => {
 };
 
 main();
+*/

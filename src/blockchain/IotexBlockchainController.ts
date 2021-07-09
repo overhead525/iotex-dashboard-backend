@@ -1,4 +1,3 @@
-import { ActionInfo } from "../generated/graphql";
 import { BaseBlockchainController } from "./BaseBlockchainController";
 import {
   fetchTransactionsByAddressGraphQL,
@@ -15,7 +14,6 @@ export class IotexBlockchainController extends BaseBlockchainController {
   }
 
   public async getNumUniqueBridgeUsers(): Promise<number> {
-    const bridgeStrings = Object.keys(this.contractsObject).slice(0, 3);
     const transactions = await fetchTransactionsByAddressGraphQL(
       this.contractsObject[this.bridgeString].tokenCashier,
       this.apiConnection
@@ -24,6 +22,7 @@ export class IotexBlockchainController extends BaseBlockchainController {
   }
 }
 
+/*
 const main = async () => {
   const ibc2e = new IotexBlockchainController("iotx2ethereum");
   const ibc2b = new IotexBlockchainController("iotx2binance");
@@ -35,3 +34,4 @@ const main = async () => {
 };
 
 main();
+*/
